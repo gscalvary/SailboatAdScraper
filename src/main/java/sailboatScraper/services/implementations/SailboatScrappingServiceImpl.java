@@ -24,7 +24,7 @@ public class SailboatScrappingServiceImpl implements ScrappingService {
         Document document;
 
         try {
-            document = Jsoup.connect("https://www.yachtworld.com/core/listing/cache/searchResults.jsp?cit=true&slim=quick&sm=3&searchtype=advancedsearch&Ntk=boatsEN&hmid=0&ftid=0&enid=0&type=Sail&fromLength=38&toLength=45&fromYear=2013&toYear=2019&fromPrice=100000&toPrice=300000&luom=126&currencyid=100&boatsAddedSelected=-1&fracts=1").get();
+            document = Jsoup.connect("https://www.yachtworld.com/core/listing/cache/searchResults.jsp?cit=true&slim=quick&sm=3&searchtype=advancedsearch&Ntk=boatsEN&hmid=0&ftid=0&enid=0&type=Sail&fromLength=38&toLength=45&fromYear=2013&toYear=2019&fromPrice=100000&toPrice=300000&luom=126&currencyid=100&boatsAddedSelected=-1&fracts=1&No=0&ps=1000").get();
         } catch (IOException ioe) {
             return sailboats;
         }
@@ -45,6 +45,12 @@ public class SailboatScrappingServiceImpl implements ScrappingService {
                 continue;
             }
 
+            float price = getPrice(priceElements.get(0));
+
+            if (price == 0) {
+                continue;
+            }
+
             Elements locationElements = listing.getElementsByClass("location");
 
             if (locationElements.isEmpty()) {
@@ -58,7 +64,7 @@ public class SailboatScrappingServiceImpl implements ScrappingService {
                             getYear(makeModelElements.get(0)),
                             getMake(makeModelElements.get(0)),
                             getModel(makeModelElements.get(0)),
-                            getPrice(priceElements.get(0)),
+                            price,
                             getLocation(locationElements.get(0)),
                             LocalDateTime.now()));
         }
@@ -109,7 +115,16 @@ public class SailboatScrappingServiceImpl implements ScrappingService {
     }
 
     private float getPrice(Element priceElement) {
-        return 202413;
+
+        String rawPrice = priceElement.text();
+
+        if (rawPrice.indexOf(" ") <= 3) {
+            return 0;
+        }
+
+        String price = rawPrice.substring(3, rawPrice.indexOf(" ")).replace(",", "");
+
+        return Float.valueOf(price);
     }
 
     private String getLocation(Element locationElement) {
