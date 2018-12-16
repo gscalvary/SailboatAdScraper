@@ -29,4 +29,5 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     // jsoup HTML parser library @ https://jsoup.org/
     compile("org.jsoup:jsoup:1.11.3")
+    compile("org.apache.commons:commons-lang3:3.8.1")
 }
