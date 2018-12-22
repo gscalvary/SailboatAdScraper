@@ -1,10 +1,9 @@
-package sailboatScraper.entities;
+package sailboatAdScraper.domain.valueObjects;
 
 import java.time.LocalDateTime;
 
-public class Sailboat {
+public class SailboatAd {
 
-    private final long id;
     private final float length;
     private final int year;
     private final String make;
@@ -13,8 +12,7 @@ public class Sailboat {
     private final String location;
     private final LocalDateTime listingDate;
 
-    public Sailboat(long id, float length, int year, String make, String model, float price, String location, LocalDateTime listingDate) {
-        this.id = id;
+    public SailboatAd(float length, int year, String make, String model, float price, String location, LocalDateTime listingDate) {
         this.length = length;
         this.year = year;
         this.make = make;
@@ -22,10 +20,6 @@ public class Sailboat {
         this.price = price;
         this.location = location;
         this.listingDate = listingDate;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public float getLength() {

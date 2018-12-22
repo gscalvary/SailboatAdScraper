@@ -1,4 +1,4 @@
-package sailboatScraper.services.implementations;
+package sailboatAdScraper.domain.services.implementations;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -6,8 +6,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
-import sailboatScraper.entities.Sailboat;
-import sailboatScraper.services.ScrappingService;
+import sailboatAdScraper.domain.valueObjects.SailboatAd;
+import sailboatAdScraper.domain.services.ScrapingService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -15,18 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SailboatScrappingServiceImpl implements ScrappingService {
+public class SailboatAdScrapingServiceImpl implements ScrapingService {
 
     @Override
-    public List<Sailboat> scrapeSite() {
+    public List<SailboatAd> scrapeSite() {
 
-        List<Sailboat> sailboats = new ArrayList<>();
+        List<SailboatAd> sailboatAds = new ArrayList<>();
         Document document;
 
         try {
             document = Jsoup.connect("https://www.yachtworld.com/core/listing/cache/searchResults.jsp?cit=true&slim=quick&sm=3&searchtype=advancedsearch&Ntk=boatsEN&hmid=0&ftid=0&enid=0&type=Sail&fromLength=38&toLength=45&fromYear=2013&toYear=2019&fromPrice=100000&toPrice=300000&luom=126&currencyid=100&boatsAddedSelected=-1&fracts=1&No=0&ps=1000").get();
         } catch (IOException ioe) {
-            return sailboats;
+            return sailboatAds;
         }
 
         Elements listings = document.getElementsByClass("information");
@@ -57,9 +57,8 @@ public class SailboatScrappingServiceImpl implements ScrappingService {
                 continue;
             }
 
-            sailboats.add(
-                    new Sailboat(
-                            getId(makeModelElements.get(0)),
+            sailboatAds.add(
+                    new SailboatAd(
                             getLength(makeModelElements.get(0)),
                             getYear(makeModelElements.get(0)),
                             getMake(makeModelElements.get(0)),
@@ -69,17 +68,7 @@ public class SailboatScrappingServiceImpl implements ScrappingService {
                             LocalDateTime.now()));
         }
 
-        return sailboats;
-    }
-
-    private long getId(Element makeModelElement) {
-
-        String linkHref = makeModelElement.selectFirst("a").attr("href");
-        String[] linkNodes = linkHref.split("-");
-        String rawId = linkNodes[linkNodes.length - 1];
-        String id = rawId.substring(0, rawId.length() - 1);
-
-        return Long.valueOf(id);
+        return sailboatAds;
     }
 
     private float getLength(Element makeModelElement) {

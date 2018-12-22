@@ -13,7 +13,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
-    baseName = 'sailboat-scraper-service'
+    baseName = 'sailboat-ad-scraper-service'
     version =  '1.0-SNAPSHOT'
 }
 
