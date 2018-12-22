@@ -1,4 +1,4 @@
-package sailboatAdScraper.domain.services.implementations;
+package sailboatAdScraper.domain.services;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -8,7 +8,6 @@ import org.jsoup.select.Elements;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import sailboatAdScraper.domain.valueObjects.SailboatAd;
-import sailboatAdScraper.domain.services.ScrapingService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -16,9 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SailboatAdScrapingServiceImpl implements ScrapingService {
+public class SailboatAdScrapingService {
 
-    @Override
     @Cacheable("sailboatAds")
     public List<SailboatAd> scrapeSite() {
 

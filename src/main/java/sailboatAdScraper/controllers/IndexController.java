@@ -2,21 +2,22 @@ package sailboatAdScraper.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sailboatAdScraper.domain.services.ScrapingService;
+import sailboatAdScraper.domain.services.SailboatAdScrapingService;
+import sailboatAdScraper.domain.valueObjects.SailboatAd;
 
 import java.util.List;
 
 @RestController
 public class IndexController {
 
-    private final ScrapingService sailboatAdScrapingService;
+    private final SailboatAdScrapingService sailboatAdScrapingService;
 
-    public IndexController(ScrapingService sailboatAdScrapingService) {
+    public IndexController(SailboatAdScrapingService sailboatAdScrapingService) {
         this.sailboatAdScrapingService = sailboatAdScrapingService;
     }
 
     @RequestMapping("/")
-    public List<?> getSailboatAds() {
+    public List<SailboatAd> getSailboatAds() {
         return sailboatAdScrapingService.scrapeSite();
     }
 }
