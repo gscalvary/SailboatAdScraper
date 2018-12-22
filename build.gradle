@@ -26,6 +26,7 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-cache")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     // jsoup HTML parser library @ https://jsoup.org/
     compile("org.jsoup:jsoup:1.11.3")
