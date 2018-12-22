@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import sailboatAdScraper.domain.valueObjects.SailboatAd;
 import sailboatAdScraper.domain.services.ScrapingService;
@@ -18,6 +19,7 @@ import java.util.List;
 public class SailboatAdScrapingServiceImpl implements ScrapingService {
 
     @Override
+    @Cacheable("sailboatAds")
     public List<SailboatAd> scrapeSite() {
 
         List<SailboatAd> sailboatAds = new ArrayList<>();
