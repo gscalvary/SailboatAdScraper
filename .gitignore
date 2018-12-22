@@ -1,5 +1,5 @@
 settings.gradle
 .gradle/*
 .idea/*
-.build/*
+build/*
 gradle-wrapper.*
