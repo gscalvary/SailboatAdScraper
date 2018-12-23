@@ -25,10 +25,12 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-cache")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-cache"
     // jsoup HTML parser library @ https://jsoup.org/
-    compile("org.jsoup:jsoup:1.11.3")
-    compile("org.apache.commons:commons-lang3:3.8.1")
+    compile "org.jsoup:jsoup:1.11.3"
+    compile "org.apache.commons:commons-lang3:3.8.1"
+    // mandatory dependencies for the Spock testing framework
+    compile "org.codehaus.groovy:groovy-all:2.4.15"
+    testCompile "org.spockframework:spock-core:1.2-groovy-2.4"
 }
