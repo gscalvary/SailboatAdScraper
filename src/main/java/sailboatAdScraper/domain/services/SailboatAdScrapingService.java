@@ -23,40 +23,7 @@ public class SailboatAdScrapingService {
     public List<SailboatAd> scrapeSite() {
 
         List<SailboatAd> sailboatAds = new ArrayList<>();
-        Document document;
-        Map<String, String> requestParameters = new HashMap<>();
-
-        requestParameters.put("cit", "true");
-        requestParameters.put("slim", "quick");
-        requestParameters.put("sm", "3");
-        requestParameters.put("searchtype", "advancedsearch");
-        requestParameters.put("Ntk", "boatsEN");
-        requestParameters.put("hmid", "0");
-        requestParameters.put("ftid", "0");
-        requestParameters.put("enid", "0");
-        requestParameters.put("type", "Sail");
-        requestParameters.put("fromLength", "31");
-        requestParameters.put("toLength", "51");
-        requestParameters.put("fromYear", "2013");
-        requestParameters.put("toYear", "2019");
-        requestParameters.put("fromPrice", "50000");
-        requestParameters.put("toPrice", "400000");
-        requestParameters.put("luom", "126");
-        requestParameters.put("currencyid", "100");
-        requestParameters.put("boatsAddedSelected", "-1");
-        requestParameters.put("fracts", "1");
-        requestParameters.put("No", "0");
-        requestParameters.put("ps", "2000");
-
-        try {
-            document = Jsoup.connect("https://www.yachtworld.com/core/listing/cache/searchResults.jsp")
-                    .data(requestParameters)
-                    .timeout(60000)
-                    .maxBodySize(0)
-                    .get();
-        } catch (IOException ioe) {
-            return sailboatAds;
-        }
+        Document document = getDocument();
 
         Elements listings = document.getElementsByClass("information");
 
@@ -98,6 +65,48 @@ public class SailboatAdScrapingService {
         }
 
         return sailboatAds;
+    }
+
+    private Document getDocument() {
+
+        Document document;
+        Map<String, String> requestParameters = new HashMap<>();
+
+        String uri = "https://www.yachtworld.com/core/listing/cache/searchResults.jsp";
+
+        requestParameters.put("cit", "true");
+        requestParameters.put("slim", "quick");
+        requestParameters.put("sm", "3");
+        requestParameters.put("searchtype", "advancedsearch");
+        requestParameters.put("Ntk", "boatsEN");
+        requestParameters.put("hmid", "0");
+        requestParameters.put("ftid", "0");
+        requestParameters.put("enid", "0");
+        requestParameters.put("type", "Sail");
+        requestParameters.put("fromLength", "31");
+        requestParameters.put("toLength", "51");
+        requestParameters.put("fromYear", "2013");
+        requestParameters.put("toYear", "2019");
+        requestParameters.put("fromPrice", "50000");
+        requestParameters.put("toPrice", "400000");
+        requestParameters.put("luom", "126");
+        requestParameters.put("currencyid", "100");
+        requestParameters.put("boatsAddedSelected", "-1");
+        requestParameters.put("fracts", "1");
+        requestParameters.put("No", "0");
+        requestParameters.put("ps", "2000");
+
+        try {
+            document = Jsoup.connect(uri)
+                    .data(requestParameters)
+                    .timeout(60000)
+                    .maxBodySize(0)
+                    .get();
+        } catch (IOException ioe) {
+            document  = new Document(uri);
+        }
+
+        return document;
     }
 
     private float getLength(Element makeModelElement) {
