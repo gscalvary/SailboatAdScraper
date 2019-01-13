@@ -1,5 +1,10 @@
+# Intellij
+*.iml
+.idea
+
+# Gradle
 settings.gradle
 .gradle/*
-.idea/*
-build/*
-gradle-wrapper.*
+gradle/*
+
+out/*
