@@ -1,0 +1,28 @@
+jsoup:
+  timeout: 60000
+  maxBodySize: 0
+
+yachtworld:
+  url: https://www.yachtworld.com/core/listing/cache/searchResults.jsp
+  requestParameters:
+    cit: true
+    slim: quick
+    sm: 3
+    searchtype: advancedsearch
+    Ntk: boatsEN
+    hmid: 0
+    ftid: 0
+    enid: 0
+    type: Sail
+    fromLength: 31
+    toLength: 51
+    fromYear: 2013
+    toYear: 2019
+    fromPrice: 50000
+    toPrice: 400000
+    luom: 126
+    currencyid: 100
+    boatsAddedSelected: -1
+    fracts: 1
+    No: 0
+    ps: 2000
