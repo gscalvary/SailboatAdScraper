@@ -1,6 +1,7 @@
 package sailboatAdScraper.controllers;
 
 import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sailboatAdScraper.domain.factories.SailboatAdFactory;
@@ -14,6 +15,9 @@ import java.util.Map;
 @RestController
 public class IndexController {
 
+    @Value("${yachtworld.url}")
+    private String url;
+
     private final SiteScrapingService siteScrapingService;
     private final SailboatAdFactory sailboatAdFactory;
 
@@ -25,9 +29,7 @@ public class IndexController {
     @GetMapping({"/", "/yachtworld"})
     public List<SailboatAd> getSailboatAds() {
 
-        Document document = siteScrapingService.scrapeSite(
-                "https://www.yachtworld.com/core/listing/cache/searchResults.jsp",
-                getYachtWorldRequestParameters());
+        Document document = siteScrapingService.scrapeSite(url, getYachtWorldRequestParameters());
 
         return sailboatAdFactory.getSailboatAds(document);
     }
