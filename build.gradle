@@ -1,3 +1,6 @@
+description 'A tool to scrape websites that host sailboat ads.'
+version '0.0.1'
+
 buildscript {
     repositories {
         mavenCentral()
@@ -19,8 +22,8 @@ bootJar {
     version =  '1.0-SNAPSHOT'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 repositories {
     mavenCentral()
